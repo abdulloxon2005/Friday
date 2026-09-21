@@ -27,3 +27,8 @@ yarn-debug.log*
 Thumbs.db
 .vscode/
 .idea/
+credentials.json 
+token.json 
+__pycache__/ 
+node_modules/ 
+.env 

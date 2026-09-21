@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  friday:
+    build: .
+    container_name: friday_cyber_ai
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - HOST=0.0.0.0
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # Tokenlar va ma'lumotlar konteyner o'chsa ham saqlanib qolishi uchun
+      - ./tokens:/app/tokens
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/auth/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

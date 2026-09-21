@@ -1,0 +1,29 @@
+# Google Credentials & Tokens (Xavfsizlik uchun Gitga kirmaydi)
+credentials.json
+token.json
+tokens/
+
+# Maxfiy muhit o'zgaruvchilari
+.env
+.env.local
+
+# Python kesh va virtual muhit
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Node va NPM
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+
+# Tizim va IDE fayllari
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

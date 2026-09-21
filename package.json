@@ -1,0 +1,12 @@
+{
+  "name": "friday-ai-assistant",
+  "version": "1.0.0",
+  "description": "Friday AI Personal Assistant for Boshliq Abdulloxon",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

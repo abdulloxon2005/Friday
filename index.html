@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FRIDAY // Kiber Shaxsiy Yordamchi & Kuzatuv Tizimi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body class="theme-hud">
+    <!-- Notification Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Grid and Hologram Background Elements -->
+    <div class="hud-background">
+        <div class="grid-overlay"></div>
+        <div class="scanlines"></div>
+        <div class="hud-circle hud-circle-1"></div>
+        <div class="hud-circle hud-circle-2"></div>
+        <div class="hud-corner top-left"></div>
+        <div class="hud-corner top-right"></div>
+        <div class="hud-corner bottom-left"></div>
+        <div class="hud-corner bottom-right"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        
+        <!-- Header HUD -->
+        <header class="hud-header">
+            <div class="system-brand">
+                <div class="brand-glitch" data-text="F.R.I.D.A.Y.">F.R.I.D.A.Y.</div>
+                <div class="system-sub">CYBER INTELLIGENT ASSISTANT // ROOT ACCESS</div>
+            </div>
+
+            <div class="hud-stats">
+                <div class="stat-box">
+                    <span class="stat-label">STATUS</span>
+                    <span class="stat-value active-glow" id="hud-status">ONLINE</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">RUXSAT</span>
+                    <span class="stat-value" id="hud-clearance">STANDBY</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">FOYDALANUVCHI</span>
+                    <span class="stat-value" id="hud-user">KUTILMOQDA</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">POCHTA</span>
+                    <span class="stat-value unread-badge" id="totalUnreadBadge" style="display:none;">0</span>
+                </div>
+            </div>
+
+            <div class="hud-controls">
+                <button id="btn-audio-toggle" class="hud-btn" title="Ovozni yoqish/o'chirish">
+                    <span class="icon">🔊</span> <span class="btn-text" id="audioToggleText">OVOZ: ON</span>
+                </button>
+                <button id="btn-report" class="hud-btn" title="Pochta va tizim hisoboti">
+                    <span class="icon">📊</span> <span class="btn-text">HISOBOT</span>
+                </button>
+                <button id="btn-settings" class="hud-btn" title="Friday Tizim Sozlamalari">
+                    <span class="icon">⚙️</span> <span class="btn-text">SOZLAMALAR</span>
+                </button>
+                <button id="btn-reset-user" class="hud-btn hud-btn-danger" title="Foydalanuvchini almashtirish">
+                    <span class="icon">🔄</span> <span class="btn-text">CHIQISH</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Mobile Navigation Tabs (Avto-size: mobil qurilmalarda ko'rinadi) -->
+        <nav class="mobile-nav-tabs" id="mobileNavTabs">
+            <button class="mobile-nav-btn active" id="mNavChat">💬 CHAT</button>
+            <button class="mobile-nav-btn" id="mNavInbox">📬 POCHTA</button>
+            <button class="mobile-nav-btn" id="mNavPhone">📡 TELEFON</button>
+            <button class="mobile-nav-btn" id="mNavSystem">⚙️ TIZIM</button>
+        </nav>
+
+        <!-- Main Body Grid -->
+        <div class="hud-grid">
+            
+            <!-- Left Panel: Hologram Core & System Monitor & Accounts -->
+            <aside class="hud-panel left-panel" id="leftPanel">
+                <div class="panel-header">
+                    <span class="panel-tag">// FRIDAY YADROSI & KUZATUV</span>
+                    <div class="live-dot"></div>
+                </div>
+
+                <!-- AI Holographic Core Reactor -->
+                <div class="core-visualizer-container">
+                    <div class="arc-reactor" id="arcReactor">
+                        <div class="core-ring core-ring-outer"></div>
+                        <div class="core-ring core-ring-middle"></div>
+                        <div class="core-ring core-ring-inner"></div>
+                        <div class="core-glow-pulse"></div>
+                        <div class="core-text">FRIDAY<br><span>CYBER v5.0</span></div>
+                    </div>
+                    <!-- Audio Waveforms -->
+                    <div class="voice-waves" id="voiceWaves">
+                        <span></span><span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+
+                <!-- Gmail Accounts Section -->
+                <div class="gmail-accounts-section" id="gmail-accounts-section">
+                    <div class="monitor-title-bar">
+                        <span class="monitor-title">📧 GMAIL AKKAUNTLAR</span>
+                        <button id="btn-refresh-accounts" class="icon-btn-tiny" title="Yangilash">🔄</button>
+                    </div>
+                    <div id="accountList" class="account-list">
+                        <div class="empty-hint">Hali akkaunt ulanmagan</div>
+                    </div>
+                    <button id="btn-add-gmail" class="btn-add-gmail">➕ GMAIL QO'SHISH</button>
+                </div>
+
+                <!-- System Logs & Quick Commands -->
+                <div class="system-monitor">
+                    <div class="monitor-title">TEZKOR BUYRUQLAR:</div>
+                    <div class="quick-commands">
+                        <button class="quick-chip" data-cmd="hisobot">📊 Pochta hisoboti</button>
+                        <button class="quick-chip" data-cmd="telefon: +998901234567 kuzat">📡 Telefon kuzatuvi</button>
+                        <button class="quick-chip" data-cmd="ishni to'xtat">🛑 Ishni to'xtat</button>
+                        <button class="quick-chip" data-cmd="tizim holati">⚡ Tizim holati</button>
+                        <button class="quick-chip" data-cmd="Sen kimsan?">❓ Sen kimsan?</button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Right / Center: Chat Console & Tabs -->
+            <main class="hud-panel chat-panel" id="chatPanel">
+                <!-- Chat/Inbox/Phone Tabs -->
+                <div class="chat-tabs">
+                    <button class="chat-tab-btn active" id="tab-chat">💬 TERMINAL MULOQOT</button>
+                    <button class="chat-tab-btn" id="tab-inbox">📬 POCHTA KUZATUVI <span id="inboxTabBadge" class="tab-badge" style="display:none;">0</span></button>
+                    <button class="chat-tab-btn" id="tab-phone">📡 TELEFON KUZATUVI <span id="phoneTabBadge" class="tab-badge" style="display:none;">0</span></button>
+                </div>
+
+                <!-- TAB 1: Chat History Messages Container -->
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Dynamic chat messages will appear here -->
+                </div>
+
+                <!-- TAB 2: Inbox Content (hidden by default) -->
+                <div class="inbox-content" id="inboxContent" style="display: none;">
+                    <div class="inbox-toolbar">
+                        <div class="inbox-filters">
+                            <button class="filter-btn active" data-filter="all">Barchasi</button>
+                            <button class="filter-btn" data-filter="unread">O'qilmagan</button>
+                        </div>
+                        <button id="btn-refresh-inbox" class="hud-btn-sm">🔄 Yangilash</button>
+                    </div>
+                    <div id="inboxMessages" class="inbox-messages-list">
+                        <!-- Dynamic inbox cards will appear here -->
+                    </div>
+                </div>
+
+                <!-- TAB 3: Phone Surveillance & GPS Hub (hidden by default) -->
+                <div class="phone-content" id="phoneContent" style="display: none;">
+                    <div class="surveillance-header-bar">
+                        <div class="surveillance-title">
+                            <span class="surveillance-radar-icon"></span>
+                            <span>📡 TELEFON VA GPS KUZATUV TERMINALI // MAXFIY</span>
+                        </div>
+                        <div class="phone-add-bar">
+                            <input type="text" id="targetPhoneInput" class="phone-input" placeholder="+998901234567..." autocomplete="off">
+                            <input type="text" id="targetNameInput" class="phone-input" placeholder="Nishon nomi (Masalan: Nishon #1)..." autocomplete="off">
+                            <button id="btn-add-target" class="hud-btn hud-btn-primary">➕ KUZATUVGA OLISH</button>
+                        </div>
+                    </div>
+                    <div id="phoneTargetsList" class="surveillance-grid">
+                        <!-- Dynamic phone surveillance cards will appear here -->
+                    </div>
+                </div>
+
+                <!-- Typing indicator -->
+                <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                    <div class="dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <span class="typing-text">FRIDAY hisoblamoqda...</span>
+                </div>
+
+                <!-- Input Area -->
+                <div class="chat-input-wrapper">
+                    <span class="terminal-prompt-tag">[FRIDAY@ROOT:~]$</span>
+                    <button id="btn-mic" class="mic-btn" title="Ovoz orqali gapirish">
+                        <span class="mic-icon">🎙️</span>
+                    </button>
+                    <textarea 
+                        id="userInput" 
+                        class="chat-input" 
+                        placeholder="Terminal buyrug'i yoki so'rov yozing..." 
+                        rows="1"
+                    ></textarea>
+                    <button id="btn-send" class="send-btn">
+                        <span>YUBORISH</span>
+                        <svg class="send-icon" viewBox="0 0 24 24">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+            </main>
+        </div>
+
+        <!-- Footer Bar -->
+        <footer class="hud-footer">
+            <div class="footer-item">MARK VII SECURE HACKER TERMINAL</div>
+            <div class="footer-item">FRIDAY AI CORE: <span id="apiStatusTag" class="status-ok">FAOL (ONLINE)</span></div>
+            <div class="footer-item">GMAIL TIZIMI: <span id="gmailStatusTag" class="status-warning">TEKSHIRILMOQDA</span></div>
+            <div class="footer-item" id="systemClock">00:00:00</div>
+        </footer>
+    </div>
+
+    <!-- MODAL: Authentication / Name Verification Modal -->
+    <div class="hud-modal" id="authModal" style="display: none;">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>XAVFSIZLIK PROTOKOLI // AUTENTIFIKATSIYA</h3>
+            </div>
+            <div class="modal-body">
+                <p class="modal-desc">
+                    Xavfsizlik protokoli faol. Tizimga kirish uchun identifikatsiya kodini kiriting:
+                </p>
+                <div class="input-group">
+                    <input type="password" id="authNameInput" class="hud-input" placeholder="Autentifikatsiya kodi..." autocomplete="off" autofocus>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-auth-submit" class="hud-btn hud-btn-primary">KIRISH</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD GMAIL ACCOUNT -->
+    <div class="hud-modal" id="addAccountModal" style="display: none;">
+        <div class="modal-box settings-modal-box">
+            <div class="modal-header">
+                <h3>📧 GMAIL POCHTANI ULASH VA KUZATUVGA OLISH</h3>
+                <button class="modal-close" id="btn-close-add-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-tabs">
+                    <button class="tab-btn active" id="tab-btn-app-pwd">🔑 ILOVA PAROLI (100% ISHONCHLI)</button>
+                    <button class="tab-btn" id="tab-btn-oauth">🌐 GOOGLE OAUTH</button>
+                </div>
+
+                <!-- Tab 1: App Password (100% ishonchli va xatosiz) -->
+                <div class="tab-content" id="tab-content-app-pwd">
+                    <p class="modal-desc">
+                        Google hisobingizning <strong>16-xonali Ilova paroli (App Password)</strong> orqali 403 xatolarisiz darhol ulaning:
+                    </p>
+                    <div class="input-group">
+                        <label class="input-label">GMAIL POCHTA MANZILINGIZ:</label>
+                        <input type="email" id="inputAppEmail" class="hud-input" placeholder="masalan: sizning_pochtangiz@gmail.com">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">16-XONALI ILOVA PAROLI (APP PASSWORD):</label>
+                        <input type="password" id="inputAppPassword" class="hud-input" placeholder="abcd efgh ijkl mnop">
+                    </div>
+                    <div class="key-help">
+                        <strong>💡 Ilova parolini olish tartibi:</strong><br>
+                        1. Google hisobingizga kiring → <a href="https://myaccount.google.com/security" target="_blank" style="color:#00ff66;">Xavfsizlik (Security)</a><br>
+                        2. <strong>2 bosqichli tasdiqlash (2-Step Verification)</strong> ni yoqing<br>
+                        3. <a href="https://myaccount.google.com/apppasswords" target="_blank" style="color:#00ff66;">Ilova parollari (App Passwords)</a> bo'limiga kiring<br>
+                        4. Ilova nomiga "Friday" deb yozing va berilgan 16 ta harfli parolni bu yerga kiriting!
+                    </div>
+                    <button id="btn-submit-app-pwd" class="hud-btn hud-btn-primary" style="width: 100%; margin-top: 10px; justify-content: center;">
+                        🔗 DARHOL ULASH VA KUZATUVGA OLISH
+                    </button>
+                    <button id="btn-demo-account" class="hud-btn" style="width: 100%; margin-top: 8px; justify-content: center; border-color: var(--neon-bright); color: var(--neon-bright);">
+                        🚀 SINOV / DEMO AKKAUNT QO'SHISH (TEST REJIMI)
+                    </button>
+                </div>
+
+                <!-- Tab 2: OAuth 2.0 -->
+                <div class="tab-content" id="tab-content-oauth" style="display: none;">
+                    <p class="modal-desc">
+                        Google Cloud Console credentials orqali login qilish:
+                    </p>
+                    <div class="key-help" style="margin-bottom: 12px; border-left-color: var(--red-alert);">
+                        ⚠️ <strong>Nima uchun Google 403 beradi?</strong><br>
+                        Google Cloud loyihangiz "Testing" holatida bo'lsa, sizning emailingiz Google Cloud konsolida <em>"OAuth consent screen -> Test users"</em> ro'yxatiga qo'shilgan bo'lishi kerak. Aks holda Google ruxsat bermay 403 xatosini ko'rsatadi.<br>
+                        👉 <strong>Tavsiya:</strong> 403 xatosini chetlab o'tish uchun yuqoridagi <strong>"Ilova paroli"</strong> tabidan foydalaning!
+                    </div>
+                    <button id="btn-start-oauth" class="hud-btn hud-btn-primary" style="width: 100%; justify-content: center;">
+                        🌐 GOOGLE ORQALI KIRISH (OAUTH POPUP)
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-cancel-add-modal" class="hud-btn">BEKOR QILISH</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: VIEW EMAIL MESSAGE DETAIL -->
+    <div class="hud-modal" id="msgDetailModal" style="display: none;">
+        <div class="modal-box email-box">
+            <div class="modal-header">
+                <h3 id="msgDetailSubject">XABAR TAFSILOTLARI</h3>
+                <button class="modal-close" id="btn-close-msg-detail">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="email-details-grid">
+                    <div class="email-field-row">
+                        <span class="f-tag">KIMDAN:</span>
+                        <span class="f-val highlight" id="msgDetailFrom">-</span>
+                    </div>
+                    <div class="email-field-row">
+                        <span class="f-tag">QAYSI POCHTAGA:</span>
+                        <span class="f-val" id="msgDetailAccount">-</span>
+                    </div>
+                    <div class="email-field-row">
+                        <span class="f-tag">SANA:</span>
+                        <span class="f-val" id="msgDetailDate">-</span>
+                    </div>
+                    <div class="email-field-row">
+                        <span class="f-tag">XABAR MATNI:</span>
+                        <div class="f-val-box" id="msgDetailBody" style="max-height: 250px; min-height: 100px; background: rgba(0,20,5,0.7); padding: 10px; border: 1px solid var(--border-hud); border-radius: 4px; overflow-y: auto;">Yuklanmoqda...</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-reply-msg" class="hud-btn hud-btn-primary">↩️ JAVOB YOZISH</button>
+                <button id="btn-close-msg-detail-footer" class="hud-btn">YOPISH</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Settings / Friday Core & EmailJS -->
+    <div class="hud-modal" id="settingsModal" style="display: none;">
+        <div class="modal-box settings-modal-box">
+            <div class="modal-header">
+                <h3>SOZLAMALAR // FRIDAY TIZIM BOG'LANISHLARI</h3>
+                <button class="modal-close" id="btn-close-settings">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-tabs">
+                    <button class="tab-btn active" id="tab-btn-ai">🧠 FRIDAY AI YADROSI</button>
+                    <button class="tab-btn" id="tab-btn-email">✉️ EMAILJS (ZAXIRA)</button>
+                </div>
+
+                <!-- Tab 1: Friday AI -->
+                <div class="tab-content" id="tab-content-ai">
+                    <p class="modal-desc">
+                        Friday kiber AI intellektual yadro kaliti:
+                    </p>
+                    <div class="input-group">
+                        <label for="apiKeyInput" class="input-label">FRIDAY AI API KALITI:</label>
+                        <input type="password" id="apiKeyInput" class="hud-input" placeholder="Friday AI kalitini kiriting...">
+                    </div>
+                    <div class="key-help">
+                        ℹ️ Friday doimiy mustaqil lokal yadroda va bulutli rejimda to'liq ishlaydi.
+                    </div>
+                </div>
+
+                <!-- Tab 2: EmailJS -->
+                <div class="tab-content" id="tab-content-email" style="display: none;">
+                    <p class="modal-desc">
+                        Zaxira xabar jo'natish xizmati:
+                    </p>
+                    <div class="input-group">
+                        <label for="emailJsServiceId" class="input-label">SERVICE ID:</label>
+                        <input type="text" id="emailJsServiceId" class="hud-input" placeholder="service_xxxxxx">
+                    </div>
+                    <div class="input-group">
+                        <label for="emailJsTemplateId" class="input-label">TEMPLATE ID:</label>
+                        <input type="text" id="emailJsTemplateId" class="hud-input" placeholder="template_xxxxxx">
+                    </div>
+                    <div class="input-group">
+                        <label for="emailJsPublicKey" class="input-label">PUBLIC KEY:</label>
+                        <input type="text" id="emailJsPublicKey" class="hud-input" placeholder="xxxxxxxxxxxxxx">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-save-key" class="hud-btn hud-btn-primary">SAQLASH</button>
+                <button id="btn-cancel-key" class="hud-btn">BEKOR QILISH</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Report -->
+    <div class="hud-modal" id="reportModal" style="display: none;">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>📊 HISOBOT // KUZATUV TIZIMI VA POCHTALAR</h3>
+                <button class="modal-close" id="btn-close-report">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="reportContent"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-close-report-footer" class="hud-btn">YOPISH</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
